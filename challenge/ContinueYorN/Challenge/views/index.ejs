@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continue? Y/N - Arcade CTF</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <div class="pacman-container">
+        <div class="pacman pacman-horizontal"></div>
+        <div class="pacman pacman-vertical"></div>
+        <div class="pacman pacman-diagonal"></div>
+    </div>
+    <div class="arcade-container">
+        <h1 class="arcade-title">CONTINUE? Y/N</h1>
+
+        <!-- Display Messages -->
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+            <% } %>
+                <% if (success) { %>
+                    <div class="alert alert-success">
+                        <%= success %>
+                    </div>
+                    <% } %>
+
+                        <div class="nav-links"
+                            style="display: flex; flex-direction: column; gap: 20px; margin: 40px 0;">
+                            <a href="/login" class="arcade-btn-large">INSERT COIN</a>
+                            <a href="/register" class="arcade-btn-large">NEW GAME</a>
+
+                        </div>
+
+
+    </div>
+
+</body>
+
+</html>

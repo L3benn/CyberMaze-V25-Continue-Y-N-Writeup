@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEW GAME - Continue? Y/N</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="arcade-container">
+        <h1 class="arcade-title">NEW PLAYER</h1>
+        <p class="arcade-subtitle">Create Your Account</p>
+
+        <form action="/api/register" method="POST">
+            <div class="form-group">
+                <label class="form-label">CHOOSE PLAYER NAME</label>
+                <input type="text" name="username" class="form-input-large" placeholder="Choose a username" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">SET ACCESS CODE</label>
+                <input type="password" name="password" class="form-input-large" placeholder="Set a password" required>
+            </div>
+
+            <button type="submit" class="arcade-btn-large green">CREATE PLAYER</button>
+        </form>
+
+        <div class="nav-links">
+            <a href="/" class="nav-link">MAIN MENU</a>
+            <a href="/login" class="nav-link">EXISTING PLAYER</a>
+        </div>
+    </div>
+</body>
+</html>

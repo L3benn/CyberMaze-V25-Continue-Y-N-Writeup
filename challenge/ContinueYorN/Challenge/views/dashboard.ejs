@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard - Where Villains Gather</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <div class="arcade-container">
+        <h1 class="arcade-title">MEGA MAN dashboard</h1>
+        <p class="arcade-subtitle">
+            ⚡ DIGITAL WASTELAND DETECTED ⚡<br>
+            Agent: <span style="color: var(--energy-yellow); text-shadow: 0 0 10px var(--energy-yellow);">
+                <%= user.username %>
+            </span> - ACCESS GRANTED
+        </p>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+            <% } %>
+
+                <% if (success) { %>
+                    <div class="alert alert-success">
+                        <%= success %>
+                    </div>
+                    <% } %>
+
+                        <div
+                            style="background: rgba(0, 68, 170, 0.2); border: 3px solid var(--mega-blue); padding: 25px; margin: 30px 0; box-shadow: 0 0 30px rgba(0, 136, 255, 0.4);">
+                            <div
+                                style="color: var(--light-blue); font-size: 11px; line-height: 1.8; margin-bottom: 20px; text-shadow: 0 0 5px var(--light-blue);">
+                                ⚠️ MISSION BRIEFING ⚠️<br><br>
+                                "Beyond the relay lies a digital wasteland stitched from memes, lies, and half-finished
+                                villain manifestos..."<br><br>
+                                Posts loop endlessly. Usernames flicker between identities.<br>
+                                Advertisements render in broken colors.<br><br>
+                                <span style="color: var(--robot-red); text-shadow: 0 0 10px var(--robot-red);">
+                                    The villains fear it. They respect it. They cannot describe it.<br>
+                                    "WILY'S LABYRINTH IS AWAKE AGAIN."
+                                </span>
+                            </div>
+
+                            <h3
+                                style="color: var(--energy-yellow); margin-bottom: 15px; text-shadow: 0 0 15px var(--energy-yellow); text-align: center;">
+                                🔧 UPLOAD INTELLIGENCE DATA 🔧
+                            </h3>
+                            <form action="/api/upload" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="resumeFile" class="form-input-large"
+                                    style="margin-bottom: 15px;" accept=".pdf,.doc,.docx,.dat" required>
+                                <button type="submit" class="arcade-btn-large">SCAN FOR THREATS</button>
+                            </form>
+                        </div>
+
+                        <% if (showDownload && fileHash) { %>
+                            <div
+                                style="margin-top: 30px; padding: 25px; border: 4px solid var(--circuit-green); background: rgba(0, 255, 136, 0.1); box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);">
+                                <h3
+                                    style="color: var(--circuit-green); margin-bottom: 15px; text-align: center; text-shadow: 0 0 15px var(--circuit-green); font-size: 16px;">
+                                    ⚡ DATA RECOVERED ⚡
+                                </h3>
+                                <p
+                                    style="color: var(--light-blue); text-align: center; margin-bottom: 20px; font-size: 10px;">
+                                    Your intercepted transmission is ready for extraction
+                                </p>
+                                <a href="/download?resume=<%= fileHash %>.dat" class="arcade-btn-large green"
+                                    style="text-decoration: none;">
+                                    💾 DOWNLOAD INTEL FILE
+                                </a>
+                            </div>
+                            <% } %>
+
+                                <div
+                                    style="background: rgba(136, 0, 255, 0.15); border: 3px solid var(--wily-purple); padding: 20px; margin: 30px 0; box-shadow: 0 0 30px rgba(136, 0, 255, 0.4);">
+                                    <div
+                                        style="color: var(--wily-purple); font-size: 10px; line-height: 1.8; text-shadow: 0 0 8px var(--wily-purple);">
+                                        ⚠️ DR. WILY'S ENCRYPTED MESSAGE ⚠️<br><br>
+                                        "Mega Man wanders corrupted threads and eavesdrops on the ghosts of
+                                        conversations: bragging, taunting, complaining..."<br><br>
+                                        <span style="color: var(--robot-red); text-shadow: 0 0 10px var(--robot-red);">
+                                            "DR. WILY'S WEBSITE MUST BE HACKED."<br>
+                                            "HIS WEIRD MACHINE RUNS UNDERGROUND."<br>
+                                            "GETTING MORE DANGEROUS EVERY SECOND."
+                                        </span><br><br>
+                                        <span
+                                            style="color: var(--energy-yellow); text-shadow: 0 0 10px var(--energy-yellow); font-size: 12px;">
+                                            ⚡ "LABYRINTH" MUST BE SHUT DOWN TO SAVE THE WORLD ⚡<br>
+                                            WE NEED YOUR HELP!
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label"
+                                        style="color: var(--light-blue); text-align: center; display: block;">
+                                        📡 SECURE DATA TRANSMISSION PROTOCOL 📡
+                                    </label>
+                                    <div
+                                        style="margin: 20px 0; font-size: 11px; color: var(--light-blue); line-height: 1.8; padding: 20px; background: rgba(0, 136, 255, 0.1); border: 2px solid var(--mega-blue); text-shadow: 0 0 5px var(--light-blue);">
+                                        🔒 SECURITY NOTICE 🔒<br><br>
+                                        To infiltrate Wily's network undetected, all intelligence must be
+                                        encoded.<br><br>
+                                        <span style="color: var(--energy-yellow);">
+                                            RECOMMENDED FORMAT: Convert your data to plain text, then rename extension
+                                            to <strong>.dat</strong>
+                                        </span><br><br>
+                                        The Labyrinth's defense systems will reject suspicious file signatures.<br>
+                                        Text-based transmissions bypass Robot Master detection protocols.
+                                    </div>
+                                </div>
+
+                                <div
+                                    style="margin: 40px 0; padding: 25px; background: rgba(255, 0, 68, 0.1); border: 3px solid var(--robot-red); box-shadow: 0 0 30px rgba(255, 0, 68, 0.4);">
+                                    <p
+                                        style="color: var(--robot-red); text-align: center; font-size: 12px; text-shadow: 0 0 10px var(--robot-red); line-height: 1.8;">
+                                        ⚡ CRITICAL ALERT ⚡<br><br>
+                                        Language itself refuses to describe what lurks in the Labyrinth.<br>
+                                        Every second wasted brings chaos closer.<br><br>
+                                        <span style="color: var(--energy-yellow);">
+                                            Upload your intelligence. Hack the relay. Stop Dr. Wily.
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div class="nav-links">
+                                    <a href="/" class="nav-link">🏠 MAIN HUB</a>
+                                    <a href="/logout" class="nav-link">🚪 DISCONNECT</a>
+                                </div>
+
+                                <div class="credits">
+                                    TRANSMISSION INTERCEPTED FROM ROBOBOOK NETWORK<br>
+                                    WHERE VILLAINS GATHER TO GLOAT<br>
+                                    ⚡ 20XX - MEGA MAN PROTOCOL ACTIVE ⚡<br>
+                                    "SAVE THE WORLD BEFORE IT'S TOO LATE"
+                                </div>
+    </div>
+</body>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSERT COIN - Continue? Y/N</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    
+    <div class="arcade-container">
+        <h1 class="arcade-title">INSERT COIN</h1>
+        <p class="arcade-subtitle">Player Authentication Required</p>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+            <% } %>
+                <% if (success) { %>
+                    <div class="alert alert-success">
+                        <%= success %>
+                    </div>
+                    <% } %>
+
+                        <form action="/api/login" method="POST">
+                            <div class="form-group">
+                                <label class="form-label">PLAYER NAME</label>
+                                <input type="text" name="username" class="form-input-large"
+                                    placeholder="Enter your username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">ACCESS CODE</label>
+                                <input type="password" name="password" class="form-input-large"
+                                    placeholder="Enter your password" required>
+                            </div>
+
+                            <button type="submit" class="arcade-btn-large blue">START GAME</button>
+                        </form>
+
+                        <div class="nav-links"
+                            style="display: flex; flex-direction: column; gap: 20px; margin: 40px 0;">
+                            <a href="/login" class="arcade-btn-large blue">INSERT COIN</a>
+                            <a href="/register" class="arcade-btn-large green">NEW GAME</a>
+                        </div>
+    </div>
+</body>
+
+</html>

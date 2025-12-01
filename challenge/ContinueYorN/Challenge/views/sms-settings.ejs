@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS CONFIG - Continue? Y/N</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="arcade-container">
+        <h1 class="arcade-title" style="color: var(--neon-blue);">SMS CONFIGURATION</h1>
+        <p class="arcade-subtitle">External Service Integration Panel</p>
+
+        <!-- Display Messages -->
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if (success) { %>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <div class="admin-panel">
+            <h3 style="color: var(--neon-yellow); margin-bottom: 20px;">SMS SERVICE SETTINGS</h3>
+            
+            <form id="smsConfigForm">
+                <div class="form-group">
+                    <label class="form-label">REQUEST METHOD</label>
+                    <select name="verb" class="form-input" required>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">SERVICE URL</label>
+                    <input type="text" name="url" class="form-input" placeholder="http://api.sms-service.com/send" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">REQUEST PARAMETERS</label>
+                    <textarea name="params" class="form-input" style="height: 80px;" placeholder='{"phone": "+1234567890", "message": "Hello"}'></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">REQUEST HEADERS</label>
+                    <textarea name="headers" class="form-input" style="height: 80px;" placeholder="Content-Type: application/json&#10;Authorization: Bearer token123"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">SUCCESS RESPONSE PATTERN</label>
+                    <input type="text" name="resp_ok" class="form-input" placeholder="success" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ERROR RESPONSE PATTERN</label>
+                    <input type="text" name="resp_bad" class="form-input" placeholder="error" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button type="submit" class="arcade-btn">SAVE CONFIG</button>
+                    <button type="button" id="testBtn" class="arcade-btn" style="background: linear-gradient(45deg, var(--neon-green), #00aa00);">TEST CONNECTION</button>
+                </div>
+            </form>
+
+            <div id="testResult" class="terminal" style="margin-top: 20px; min-height: 100px; display: none;">
+                <div class="terminal-command">> TEST RESULTS:</div>
+                <div id="resultContent" class="terminal-output"></div>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="/admin" class="nav-link">BACK TO ADMIN</a>
+            <a href="/sql-prompt" class="nav-link">SQL TERMINAL</a>
+            <a href="/logout" class="nav-link">LOGOUT</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('smsConfigForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('/api/sms/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                if (response.ok) {
+                    alert('SMS configuration saved successfully!');
+                    window.location.reload();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            }
+        });
+
+        document.getElementById('testBtn').addEventListener('click', async () => {
+            const formData = new FormData(document.getElementById('smsConfigForm'));
+            const data = Object.fromEntries(formData);
+            
+            const resultDiv = document.getElementById('testResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            resultDiv.style.display = 'block';
+            resultContent.innerHTML = '<div style="color: var(--neon-yellow);">Testing connection...</div>';
+            
+            try {
+                const response = await fetch('/api/sms/test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                if (result.status === 'success') {
+                    resultContent.innerHTML = `<div style="color: var(--neon-green);">✓ CONNECTION SUCCESS</div>
+                                              <div style="margin-top: 10px;">Response: ${result.result}</div>`;
+                } else {
+                    resultContent.innerHTML = `<div style="color: #ff0000;">✗ CONNECTION FAILED</div>
+                                              <div style="margin-top: 10px;">Error: ${result.result}</div>`;
+                }
+            } catch (error) {
+                resultContent.innerHTML = `<div style="color: #ff0000;">✗ NETWORK ERROR</div>
+                                          <div style="margin-top: 10px;">${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

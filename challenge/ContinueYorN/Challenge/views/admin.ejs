@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN TERMINAL - Continue? Y/N</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="arcade-container">
+        <h1 class="arcade-title" style="color: var(--neon-pink);">ADMIN TERMINAL</h1>
+        <p class="arcade-subtitle">System Control Panel - Welcome, <%= user.username %></p>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if (success) { %>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <div class="admin-panel">
+            <h3 style="color: var(--neon-yellow); margin-bottom: 20px;">SYSTEM CONTROLS</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                <a href="/sms-settings" class="arcade-btn" style="text-decoration: none; text-align: center;">
+                    📱 SMS CONFIG
+                </a>
+                <a href="/sql-prompt" class="arcade-btn" style="text-decoration: none; text-align: center;">
+                    🗃️ SQL TERMINAL
+                </a>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-command">> SYSTEM STATUS: ONLINE</div>
+                <div class="terminal-command">> SECURITY LEVEL: MAXIMUM</div>
+                <div class="terminal-command">> USER: <%= user.username %></div>
+                <div class="terminal-command">> ADMIN PRIVILEGES: ACTIVE</div>
+                <div class="terminal-output">> WARNING: RESTRICTED ACCESS AREA</div>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="/dashboard" class="nav-link">PLAYER MENU</a>
+            <a href="/logout" class="nav-link">LOGOUT</a>
+        </div>
+    </div>
+</body>
+</html>

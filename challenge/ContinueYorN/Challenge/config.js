@@ -1,0 +1,1 @@
+export const SQL_ACCESS_KEY = "d7aXhuL4ZKKwyuES7UNutrEq";
