@@ -15,15 +15,6 @@ Continue Y/N is a web application that allows users to register, login, upload f
 
     SQL Command Execution through whitelist bypass
 
-🚀 Quick Start
-Prerequisites
-
-    Docker
-
-    Docker Compose
-
-Installation & Setup
-bash
 
 # Clone the repository
 git clone https://github.com/L3benn/CyberMaze-V25-Continue-Y-N-Writeup.git
